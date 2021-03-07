@@ -1,11 +1,24 @@
+local g = vim.g
 local o = vim.o
+local cmd = vim.cmd
 local w = vim.wo
 local b = vim.bo
+local fn = vim.fn
+local execute = vim.api.nvim_command
 
-local utils = require('utils')
-require('plugins')
+g.mapleader = ','
 
-vim.g.mapleader = ','
+-- Auto install packer.nvim if not exists
+local install_path = fn.stdpath('data')..'/site/pack/packer/opt/packer.nvim'
+if fn.empty(fn.glob(install_path)) > 0 then
+  execute('!git clone https://github.com/wbthomason/packer.nvim '..install_path)
+end
+vim.cmd [[packadd packer.nvim]]
+vim.cmd 'autocmd BufWritePost plugins.lua PackerCompile' -- Auto compile when there are changes in plugins.lua
+--
+-- local utils = require('utils')
+local plugins = require('plugins')
+
 
 b.autoindent = true
 b.expandtab = true
@@ -88,16 +101,16 @@ vim.api.nvim_set_keymap('n', '<Down>', [[:echoerr "Do not do that!!"<cr>]], {nor
 vim.api.nvim_set_keymap('n', '<Left>', [[:echoerr "Do not do that!!"<cr>]], {noremap = true})
 vim.api.nvim_set_keymap('n', '<Right>', [[:echoerr "Do not do that!!"<cr>]], {noremap = true})
 
-utils.create_augroup({
-  {'FileType', '*', 'setlocal', 'shiftwidth=4'},
-  {'FileType', 'ocaml,lua,nix', 'setlocal', 'shiftwidth=2'},
-  -- {'FileType', 'dap-rel', [[lua require('dap.ext.autocompl').attach()]]}
-}, 'Tab2')
+-- utils.create_augroup({
+--   {'FileType', '*', 'setlocal', 'shiftwidth=4'},
+--   {'FileType', 'ocaml,lua,nix', 'setlocal', 'shiftwidth=2'},
+--   -- {'FileType', 'dap-rel', [[lua require('dap.ext.autocompl').attach()]]}
+-- }, 'Tab2')
 
-utils.create_augroup({
-  {'BufNewFile,BufReadPost', '*.md', 'set', 'filetype=markdown'},
-  {'BufRead,BufNewFile', '*.yapl', 'set', 'filetype=yapl'}
-}, 'BufE')
+-- utils.create_augroup({
+--   {'BufNewFile,BufReadPost', '*.md', 'set', 'filetype=markdown'},
+--   {'BufRead,BufNewFile', '*.yapl', 'set', 'filetype=yapl'}
+-- }, 'BufE')
 
 local home = os.getenv('HOME')
 
@@ -113,7 +126,7 @@ local home = os.getenv('HOME')
 -- utils.add_rtp(home .. '/.opam/default/share/merlin/vim')
 -- utils.add_rtp(home .. '/.opam/default/share/merlin/vimbufsync')
 
--- cmd [[packadd vimball]]
+cmd [[packadd vimball]]
 
 local ok, _ = pcall(function() require('lsp_config') end)
 
@@ -146,8 +159,8 @@ end
 -- R('globals')
 -- R('elem.dap')
 
--- cmd [[colorscheme space-nvim]]
--- cmd [[highlight LspDiagnosticsUnderline cterm=undercurl gui=undercurl]]
+cmd [[colorscheme onedark]]
+cmd [[highlight LspDiagnosticsUnderline cterm=undercurl gui=undercurl]]
 
 -- cmd [[
 -- command! -complete=file -nargs=* DebugC lua require "elem.dap".start_c_debugger({<f-args>}, "lldb")

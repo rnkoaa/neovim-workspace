@@ -1,7 +1,11 @@
 FROM ubuntu:20.04
 
 # Set debconf to run non-interactively
-# RUN echo 'debconf debconf/frontend select Noninteractive' | debconf-set-selections
+RUN echo 'debconf debconf/frontend select Noninteractive' | debconf-set-selections
+
+ENV LANG en_US.UTF-8  
+ENV LANGUAGE en_US:en  
+ENV LC_ALL en_US.UTF-8  
 
 RUN apt update \
   && apt upgrade -y \
@@ -21,50 +25,61 @@ RUN apt update \
     zsh \
     zip \
     unzip \
-    xclip \
-  && apt clean all \
-  && rm -rf /var/lib/apt/lists/*
+    xclip 
 
-RUN mkdir /neovim \
-  && cd /neovim \
-  && wget -q https://github.com/neovim/neovim/releases/download/nightly/nvim.appimage \
-  && chmod +x ./nvim.appimage \
-  && ./nvim.appimage --appimage-extract \
-  && mv squashfs-root / && ln -s /squashfs-root/AppRun /usr/bin/nvim 
+RUn add-apt-repository -y -r ppa:chris-lea/node.js \
+  && rm -f /etc/apt/sources.list.d/chris-lea-node_js-*.list \
+  && rm -f /etc/apt/sources.list.d/chris-lea-node_js-*.list.save \
+  && curl -sL https://deb.nodesource.com/gpgkey/nodesource.gpg.key | apt-key add -
 
-ENV HOME /home/neovim
+# RUN curl -sL https://deb.nodesource.com/setup_15.x | bash - \
+#   && apt update \
+#   && apt install -y nodejs 
+  # && apt clean all \
+  # && rm -rf /var/lib/apt/lists/*
+  # && chmod +x nodesource_setup.sh \
+  # && ./nodesource_setup.sh
 
-RUN groupdel users \
-  && groupadd -r neovim \
-  && useradd --create-home --home-dir $HOME -r -g neovim neovim
+# RUN mkdir /neovim \
+#   && cd /neovim \
+#   && wget -q https://github.com/neovim/neovim/releases/download/nightly/nvim.appimage \
+#   && chmod +x ./nvim.appimage \
+#   && ./nvim.appimage --appimage-extract \
+#   && mv squashfs-root / && ln -s /squashfs-root/AppRun /usr/bin/nvim 
 
-USER neovim
+# ENV HOME /home/neovim
 
-RUN git clone https://github.com/wbthomason/packer.nvim \
-  ~/.local/share/nvim/site/pack/packer/start/packer.nvim
+# RUN groupdel users \
+#   && groupadd -r neovim \
+#   && useradd --create-home --home-dir $HOME -r -g neovim neovim
+
+# USER neovim
+
+# RUN git clone https://github.com/wbthomason/packer.nvim \
+#   ~/.local/share/nvim/site/pack/packer/start/packer.nvim
 
 
-# RUN chsh -s /usr/bin/zsh \
-#   && sh -c "$(curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
-RUN wget https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh -O - | zsh || true
 
-WORKDIR $HOME
-ENV PATH "$HOME/.local/bin:${PATH}"
+# RUN wget https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh -O - | zsh || true
 
-RUN mkdir -p $HOME/.config/lua \
-  $HOME/.config/nvim/undodir \
-  $HOME/.config/plugin \
-  $HOME/.neovim.d \
-  $HOME/.local
+# WORKDIR $HOME
+# ENV PATH "$HOME/.local/bin:${PATH}"
 
-RUN pip3 install \
-  --trusted-host pypi.org \
-  --trusted-host files.pythonhosted.org \
-  --user neovim pipenv
+# RUN mkdir -p $HOME/.config/lua \
+#   $HOME/.config/nvim/undodir \
+#   $HOME/.config/plugin \
+#   $HOME/.neovim.d \
+#   $HOME/.local
 
-# COPY ./init.lua $HOME/.config/nvim/init.lua
-# COPY ./utils.lua $HOME/.config/nvim/lua/utils.lua
-# COPY ./lsp_config.lua $HOME/.config/nvim/lua/lsp_config.lua
-# COPY ./plugins.lua $HOME/.config/nvim/lua/plugins.lua
+# RUN pip3 install \
+#   --trusted-host pypi.org \
+#   --trusted-host files.pythonhosted.org \
+#   --user neovim pipenv
 
-ENTRYPOINT ["zsh"]
+# # COPY ./init.lua $HOME/.config/nvim/init.lua
+# # COPY ./utils.lua $HOME/.config/nvim/lua/utils.lua
+# # COPY ./lsp_config.lua $HOME/.config/nvim/lua/lsp_config.lua
+# # COPY ./plugins.lua $HOME/.config/nvim/lua/plugins.lua
+
+# ENTRYPOINT ["zsh"]
+ENTRYPOINT ["sh"]

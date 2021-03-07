@@ -1,14 +1,33 @@
-vim.cmd [[packadd packer.nvim]]
+-- vim.cmd [[packadd packer.nvim]]
+-- vim.cmd [[ packadd completion-nvim ]]
 
 return require('packer').startup({
   function(use)
-
+    -- Packer can manage itself as an optional plugin
     use {'wbthomason/packer.nvim', opt = true}
-    --{{{ LSP
-    -- use {'joshdick/onedark.vim'}
-    -- use 'neovim/nvim-lspconfig'
 
-    -- use 'nvim-lua/completion-nvim'
+    -- colorscheme
+    use {'joshdick/onedark.vim'}
+
+    -- Better syntax
+    use { 'nvim-treesitter/nvim-treesitter', run = ':TSUpdate' } 
+    use { 'nvim-treesitter/playground' }
+
+    -- LSP and completion
+    use {'neovim/nvim-lspconfig'}
+    use {'nvim-lua/completion-nvim'}
+  end
+})
+--return require('packer').startup({
+--  function(use)
+
+--    use {'wbthomason/packer.nvim', opt = true}
+--    --{{{ LSP
+--    use {'joshdick/onedark.vim'}
+
+--    use {'neovim/nvim-lspconfig'}
+--    use {'nvim-lua/completion-nvim'}
+
     -- use 'steelsojka/completion-buffers'
     -- use 'nvim-treesitter/nvim-treesitter'
     -- use 'nvim-treesitter/playground'
@@ -130,30 +149,30 @@ return require('packer').startup({
     -- {{{ maybe later
     --use 'npxbr/glow.nvim'
     -- }}}
-  end,
-  config =  {
-    display = {
-      _open_fn = function(name)
-        -- Can only use plenary when we have our plugins.
-        --  We can only get plenary when we don't have our plugins ;)
-        local ok, float_win = pcall(function()
-          return require('plenary.window.float').percentage_range_window(0.8, 0.8)
-        end)
+  -- end,
+  -- config =  {
+  --   display = {
+  --     _open_fn = function(name)
+  --       -- Can only use plenary when we have our plugins.
+  --       --  We can only get plenary when we don't have our plugins ;)
+  --       local ok, float_win = pcall(function()
+  --         return require('plenary.window.float').percentage_range_window(0.8, 0.8)
+  --       end)
 
-        if not ok then
-          vim.cmd [[65vnew  [packer] ]]
-          return vim.api.nvim_get_current_win(), vim.api.nvim_get_current_buf()
-        end
+  --       if not ok then
+  --         vim.cmd [[65vnew  [packer] ]]
+  --         return vim.api.nvim_get_current_win(), vim.api.nvim_get_current_buf()
+  --       end
 
-        local bufnr = float_win.buf
-        local win = float_win.win
+  --       local bufnr = float_win.buf
+  --       local win = float_win.win
 
-        vim.api.nvim_buf_set_name(bufnr, name)
-        vim.api.nvim_win_set_option(win, 'winblend', 10)
+  --       vim.api.nvim_buf_set_name(bufnr, name)
+  --       vim.api.nvim_win_set_option(win, 'winblend', 10)
 
-        return win, bufnr
-      end
-    },
-  }
-})
+  --       return win, bufnr
+  --     end
+  --   },
+  -- }
+-- })
 
