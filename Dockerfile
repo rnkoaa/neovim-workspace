@@ -62,9 +62,9 @@ RUN pip3 install \
   --trusted-host files.pythonhosted.org \
   --user neovim pipenv
 
-COPY ./init.lua $HOME/.config/nvim/init.lua
-COPY ./utils.lua $HOME/.config/nvim/lua/utils.lua
-COPY ./lsp_config.lua $HOME/.config/nvim/lua/lsp_config.lua
-COPY ./plugins.lua $HOME/.config/nvim/lua/plugins.lua
+# COPY ./init.lua $HOME/.config/nvim/init.lua
+# COPY ./utils.lua $HOME/.config/nvim/lua/utils.lua
+# COPY ./lsp_config.lua $HOME/.config/nvim/lua/lsp_config.lua
+# COPY ./plugins.lua $HOME/.config/nvim/lua/plugins.lua
 
 ENTRYPOINT ["zsh"]
