@@ -1,0 +1,11 @@
+version: '3'
+
+services:
+  neovim:
+    container_name: neovim
+    build:
+      context: .
+    volume:
+      - $(PWD)/config:/home/neovim/.config
+
+
