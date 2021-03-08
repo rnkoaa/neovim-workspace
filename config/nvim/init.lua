@@ -17,7 +17,7 @@ vim.cmd [[packadd packer.nvim]]
 vim.cmd 'autocmd BufWritePost plugins.lua PackerCompile' -- Auto compile when there are changes in plugins.lua
 --
 -- local utils = require('utils')
-local plugins = require('plugins')
+require('plugins')
 
 
 b.autoindent = true
@@ -165,3 +165,5 @@ cmd [[highlight LspDiagnosticsUnderline cterm=undercurl gui=undercurl]]
 -- cmd [[
 -- command! -complete=file -nargs=* DebugC lua require "elem.dap".start_c_debugger({<f-args>}, "lldb")
 -- ]]
+-- require'nvim_lsp'.pyls.setup{}
+

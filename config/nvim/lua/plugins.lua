@@ -1,6 +1,41 @@
 -- vim.cmd [[packadd packer.nvim]]
 -- vim.cmd [[ packadd completion-nvim ]]
 
+-- local packer = nil
+-- local function init()
+--   if packer == nil then
+--     packer = require('packer')
+--     packer.init({disable_commands = true})
+--   end
+
+--   local use = packer.use
+--   local use_rocks = packer.use_rocks
+--   packer.reset()
+--   use {'wbthomason/packer.nvim', opt = true}
+--   -- colorscheme
+--   use {'joshdick/onedark.vim'}
+
+--   -- Better syntax
+--   use { 'nvim-treesitter/nvim-treesitter', run = ':TSUpdate' } 
+--   use { 'nvim-treesitter/playground' }
+
+--   -- LSP and completion
+--   use {'neovim/nvim-lspconfig'}
+--   use {'nvim-lua/completion-nvim'}
+
+-- end
+
+-- local plugins = setmetatable({}, {
+--   __index = function(_, key)
+--     init()
+--     return packer[key]
+--   end
+-- })
+
+-- return plugins
+-- vim.cmd [[packadd packer.nvim]]
+-- vim.cmd [[ packadd completion-nvim ]]
+
 return require('packer').startup({
   function(use)
     -- Packer can manage itself as an optional plugin

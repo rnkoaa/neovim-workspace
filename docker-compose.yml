@@ -3,9 +3,12 @@ version: '3'
 services:
   neovim:
     container_name: neovim
-    build:
-      context: .
-    volume:
-      - $(PWD)/config:/home/neovim/.config
+    image: rnkoaa/neovim
+    # build:
+    #   context: .
+    stdin_open: true
+    tty: true
+    volumes:
+      - ./config:/home/neovim/.config
 
 

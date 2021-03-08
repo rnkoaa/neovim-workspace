@@ -31,10 +31,22 @@ RUN apt update \
   && apt clean all \
   && rm -rf /var/lib/apt/lists/*
 
-RUn add-apt-repository -y -r ppa:chris-lea/node.js \
-  && rm -f /etc/apt/sources.list.d/chris-lea-node_js-*.list \
-  && rm -f /etc/apt/sources.list.d/chris-lea-node_js-*.list.save \
-  && curl -sL https://deb.nodesource.com/gpgkey/nodesource.gpg.key | apt-key add -
+RUN npm install -g npm \
+  && npm install -g typescript \
+  neovim \
+  dockerfile-language-server-nodejs \
+  typescript-language-server \
+  vscode-json-languageserver \
+  vscode-html-languageserver-bin \
+  bash-language-server \
+  && pip3 install python-language-server
+  
+RUN mkdir /neovim \
+   && cd /neovim \
+   && wget -q https://github.com/neovim/neovim/releases/download/nightly/nvim.appimage \
+   && chmod +x ./nvim.appimage \
+   && ./nvim.appimage --appimage-extract \
+   && mv squashfs-root / && ln -s /squashfs-root/AppRun /usr/bin/nvim 
 
 ENV HOME /home/neovim
 
@@ -44,10 +56,14 @@ RUN groupdel users \
 
 USER neovim
 
-RUN git clone https://github.com/wbthomason/packer.nvim \
-  ~/.local/share/nvim/site/pack/packer/start/packer.nvim
+# RUN git clone https://github.com/wbthomason/packer.nvim \
+#   ~/.local/share/nvim/site/pack/packer/start/packer.nvim
 
-RUN wget https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh -O - | zsh || true
+RUN pip3 install \
+  --trusted-host pypi.org \
+  --trusted-host files.pythonhosted.org \
+  --user neovim pipenv \
+  && wget https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh -O - | zsh || true 
 
 WORKDIR $HOME
 ENV PATH "$HOME/.local/bin:${PATH}"
@@ -58,15 +74,10 @@ ENV PATH "$HOME/.local/bin:${PATH}"
 #   $HOME/.neovim.d \
 #   $HOME/.local
 
-# RUN pip3 install \
-#   --trusted-host pypi.org \
-#   --trusted-host files.pythonhosted.org \
-#   --user neovim pipenv
-
-# # COPY ./init.lua $HOME/.config/nvim/init.lua
+# RUN # # COPY ./init.lua $HOME/.config/nvim/init.lua
 # # COPY ./utils.lua $HOME/.config/nvim/lua/utils.lua
 # # COPY ./lsp_config.lua $HOME/.config/nvim/lua/lsp_config.lua
 # # COPY ./plugins.lua $HOME/.config/nvim/lua/plugins.lua
 
-# ENTRYPOINT ["zsh"]
-ENTRYPOINT ["sh"]
+ENTRYPOINT ["zsh"]
+# ENTRYPOINT ["sh"]

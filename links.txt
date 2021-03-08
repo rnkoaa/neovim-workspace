@@ -7,4 +7,7 @@ https://emilienl.medium.com/a-quick-guide-to-configure-neovim-in-lua-7c58a28e624
 ## A quick guide to set up nvim built in LSP 
 https://emilienl.medium.com/a-quick-guide-to-set-up-nvim-built-in-lsp-419bb6e91c0a
 
+## Preferred
+## Configuring Neovim using Lua
+https://icyphox.sh/blog/nvim-lua/
 
