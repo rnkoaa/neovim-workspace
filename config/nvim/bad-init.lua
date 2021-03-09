@@ -7,18 +7,18 @@ local fn = vim.fn
 local execute = vim.api.nvim_command
 
 g.mapleader = ','
+-- This file can be loaded by calling `lua require('plugins')` from your init.vim
 
--- Auto install packer.nvim if not exists
-local install_path = fn.stdpath('data')..'/site/pack/packer/opt/packer.nvim'
-if fn.empty(fn.glob(install_path)) > 0 then
-  execute('!git clone https://github.com/wbthomason/packer.nvim '..install_path)
-end
-vim.cmd [[packadd packer.nvim]]
-vim.cmd 'autocmd BufWritePost plugins.lua PackerCompile' -- Auto compile when there are changes in plugins.lua
---
--- local utils = require('utils')
-require('plugins')
-
+-- Only required if you have packer in your `opt` pack
+-- vim.cmd [[packadd packer.nvim]]
+-- require('plugins')
+cmd 'packadd paq-nvim'               -- load the package manager
+local paq = require('paq-nvim').paq  -- a convenient alias
+paq {'savq/paq-nvim', opt = true}    -- paq-nvim manages itself
+paq {'nvim-treesitter/nvim-treesitter'}
+paq {'neovim/nvim-lspconfig'}
+paq {'junegunn/fzf', hook = fn['fzf#install']}
+paq {'junegunn/fzf.vim'}
 
 b.autoindent = true
 b.expandtab = true
@@ -159,8 +159,8 @@ end
 -- R('globals')
 -- R('elem.dap')
 
-cmd [[colorscheme onedark]]
-cmd [[highlight LspDiagnosticsUnderline cterm=undercurl gui=undercurl]]
+-- cmd [[colorscheme onedark]]
+-- cmd [[highlight LspDiagnosticsUnderline cterm=undercurl gui=undercurl]]
 
 -- cmd [[
 -- command! -complete=file -nargs=* DebugC lua require "elem.dap".start_c_debugger({<f-args>}, "lldb")

@@ -8,7 +8,9 @@ services:
     #   context: .
     stdin_open: true
     tty: true
+    # user: 999
     volumes:
       - ./config:/home/neovim/.config
+      - ./local:/home/neovim/.local
 
 

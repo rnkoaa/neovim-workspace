@@ -39,6 +39,7 @@ RUN npm install -g npm \
   vscode-json-languageserver \
   vscode-html-languageserver-bin \
   bash-language-server \
+  pyright \
   && pip3 install python-language-server
   
 RUN mkdir /neovim \
@@ -53,11 +54,15 @@ ENV HOME /home/neovim
 RUN groupdel users \
   && groupadd -r neovim \
   && useradd --create-home --home-dir $HOME -r -g neovim neovim
-
+RUN 
 USER neovim
 
-# RUN git clone https://github.com/wbthomason/packer.nvim \
-#   ~/.local/share/nvim/site/pack/packer/start/packer.nvim
+RUN git clone https://github.com/wbthomason/packer.nvim \
+  ~/.local/share/nvim/site/pack/packer/start/packer.nvim \
+  && git clone https://github.com/savq/paq-nvim.git \
+    ~/.local/share/nvim/site/pack/paqs/opt/paq-nvim \
+  && curl -fLo "${XDG_DATA_HOME:-$HOME/.local/share}"/nvim/site/autoload/plug.vim --create-dirs \
+       https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
 
 RUN pip3 install \
   --trusted-host pypi.org \
@@ -68,16 +73,4 @@ RUN pip3 install \
 WORKDIR $HOME
 ENV PATH "$HOME/.local/bin:${PATH}"
 
-# RUN mkdir -p $HOME/.config/lua \
-#   $HOME/.config/nvim/undodir \
-#   $HOME/.config/plugin \
-#   $HOME/.neovim.d \
-#   $HOME/.local
-
-# RUN # # COPY ./init.lua $HOME/.config/nvim/init.lua
-# # COPY ./utils.lua $HOME/.config/nvim/lua/utils.lua
-# # COPY ./lsp_config.lua $HOME/.config/nvim/lua/lsp_config.lua
-# # COPY ./plugins.lua $HOME/.config/nvim/lua/plugins.lua
-
 ENTRYPOINT ["zsh"]
-# ENTRYPOINT ["sh"]

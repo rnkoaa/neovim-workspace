@@ -1,3 +1,17 @@
+-- Only required if you have packer in your `opt` pack
+vim.cmd [[packadd packer.nvim]]
+return require('packer').startup(function()
+  -- Packer can manage itself as an optional plugin
+  use {'wbthomason/packer.nvim', opt = true}
+
+end
+)
+
+
+
+
+
+
 -- vim.cmd [[packadd packer.nvim]]
 -- vim.cmd [[ packadd completion-nvim ]]
 
@@ -36,23 +50,23 @@
 -- vim.cmd [[packadd packer.nvim]]
 -- vim.cmd [[ packadd completion-nvim ]]
 
-return require('packer').startup({
-  function(use)
-    -- Packer can manage itself as an optional plugin
-    use {'wbthomason/packer.nvim', opt = true}
+-- return require('packer').startup({
+--   function(use)
+--     -- Packer can manage itself as an optional plugin
+--     use {'wbthomason/packer.nvim', opt = true}
 
-    -- colorscheme
-    use {'joshdick/onedark.vim'}
+--     -- colorscheme
+--     use {'joshdick/onedark.vim'}
 
-    -- Better syntax
-    use { 'nvim-treesitter/nvim-treesitter', run = ':TSUpdate' } 
-    use { 'nvim-treesitter/playground' }
+--     -- Better syntax
+--     use { 'nvim-treesitter/nvim-treesitter', run = ':TSUpdate' } 
+--     use { 'nvim-treesitter/playground' }
 
-    -- LSP and completion
-    use {'neovim/nvim-lspconfig'}
-    use {'nvim-lua/completion-nvim'}
-  end
-})
+--     -- LSP and completion
+--     use {'neovim/nvim-lspconfig'}
+--     use {'nvim-lua/completion-nvim'}
+--   end
+-- })
 --return require('packer').startup({
 --  function(use)
 
