@@ -56,17 +56,21 @@ RUN groupdel users \
 
 USER neovim
 
-# RUN git clone https://github.com/wbthomason/packer.nvim \
-#   ~/.local/share/nvim/site/pack/packer/start/packer.nvim
+RUN git clone https://github.com/wbthomason/packer.nvim \
+  ~/.local/share/nvim/site/pack/packer/start/packer.nvim
 
 RUN pip3 install \
   --trusted-host pypi.org \
   --trusted-host files.pythonhosted.org \
   --user neovim pipenv \
-  && wget https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh -O - | zsh || true 
+  && wget https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh -O - | zsh || true \
+  && mkdir -p /home/neovim/.config/nvim/lua
 
 WORKDIR $HOME
 ENV PATH "$HOME/.local/bin:${PATH}"
+
+VOLUME /home/neovim/.config
+VOLUME /home/neovim/.local
 
 # RUN mkdir -p $HOME/.config/lua \
 #   $HOME/.config/nvim/undodir \
