@@ -1,0 +1,19 @@
+version: '3'
+
+services:
+  neovim:
+    container_name: neovim
+    image: rnkoaa/neovim
+    # build:
+    #   context: .
+    stdin_open: true
+    tty: true
+    volumes:
+      - config_content:/home/neovim/.config
+      - pack_content:/home/neovim/.config
+
+
+volumes:
+  config_content:
+  pack_content:
+
