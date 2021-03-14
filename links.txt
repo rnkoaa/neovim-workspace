@@ -1,0 +1,13 @@
+## Neovim LSP and DAP using Lua
+https://github.com/alpha2phi/dotfiles/tree/main/config/nvim
+
+## A quick guide to configure Neovim in lua
+https://emilienl.medium.com/a-quick-guide-to-configure-neovim-in-lua-7c58a28e624c
+
+## A quick guide to set up nvim built in LSP 
+https://emilienl.medium.com/a-quick-guide-to-set-up-nvim-built-in-lsp-419bb6e91c0a
+
+## Preferred
+## Configuring Neovim using Lua
+https://icyphox.sh/blog/nvim-lua/
+
