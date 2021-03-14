@@ -1,0 +1,169 @@
+local g = vim.g
+local o = vim.o
+local cmd = vim.cmd
+local w = vim.wo
+local b = vim.bo
+local fn = vim.fn
+local execute = vim.api.nvim_command
+
+g.mapleader = ','
+
+-- Auto install packer.nvim if not exists
+local install_path = fn.stdpath('data')..'/site/pack/packer/opt/packer.nvim'
+if fn.empty(fn.glob(install_path)) > 0 then
+  execute('!git clone https://github.com/wbthomason/packer.nvim '..install_path)
+end
+vim.cmd [[packadd packer.nvim]]
+vim.cmd 'autocmd BufWritePost plugins.lua PackerCompile' -- Auto compile when there are changes in plugins.lua
+--
+-- local utils = require('utils')
+require('plugins')
+
+
+b.autoindent = true
+b.expandtab = true
+b.softtabstop = 4
+b.shiftwidth = 4
+b.tabstop = 4
+b.smartindent = true
+b.modeline = false
+
+o.backspace = [[indent,eol,start]]
+o.hidden = true
+w.winfixwidth = true
+
+o.lazyredraw = true
+
+o.splitbelow = true
+o.splitright = true
+
+w.cursorline = true
+b.synmaxcol = 4000
+
+w.number = true
+w.relativenumber = true
+
+w.list = true
+if vim.fn.has('multi_byte') == 1 and vim.o.encoding == 'utf-8' then
+  o.listchars = [[tab:▸ ,extends:❯,precedes:❮,nbsp:±,trail:…]]
+else
+  o.listchars = [[tab:> ,extends:>,precedes:<,nbsp:.,trail:_]]
+end
+
+w.colorcolumn = [[100]]
+w.wrap = false
+o.termguicolors = true
+o.clipboard = [[unnamed,unnamedplus]]
+o.scrolloff = 4
+o.timeoutlen = 300
+o.mouse = 'a'
+
+-- if o.shell == 'fish$' then
+--   o.shell = [[/bin/bash]]
+-- end
+
+o.completeopt = [[menuone,noinsert,noselect]]
+
+-- General mappings, not depending on any plugins
+-- utils.map('v', 'J', [[:m '>+1<cr>gv=gv]], {noremap = true})
+-- utils.map('v', 'K', [[:m '<-2<cr>gv=gv]], {noremap = true})
+
+-- utils.map('n', '<A-Tab>', ':tabnext<cr>', {noremap = true})
+-- utils.map('n', '<A-S-Tab>', ':tabprev<cr>', {noremap = true})
+
+-- utils.map('n', '<Up>', [[:echoerr "Do not do that!!"<cr>]], {noremap = true})
+-- utils.map('n', '<Down>', [[:echoerr "Do not do that!!"<cr>]], {noremap = true})
+-- utils.map('n', '<Left>', [[:echoerr "Do not do that!!"<cr>]], {noremap = true})
+-- utils.map('n', '<Right>', [[:echoerr "Do not do that!!"<cr>]], {noremap = true})
+
+-- utils.create_augroup({
+--   {'FileType', '*', 'setlocal', 'shiftwidth=4'},
+--   {'FileType', 'ocaml,lua', 'setlocal', 'shiftwidth=2'},
+--   {'FileType', 'dap-rel', [[lua require('dap.ext.autocompl').attach()]]}
+-- }, 'Tab2')
+
+-- utils.create_augroup({
+--   {'BufNewFile,BufReadPost', '*.md', 'set', 'filetype=markdown'},
+--   {'BufRead,BufNewFile', '*.yapl', 'set', 'filetype=yapl'}
+-- }, 'BufE')
+--
+-- General mappings, not depending on any plugins
+vim.api.nvim_set_keymap('i', 'jk', '<esc>', {})
+-- vim.api.nvim_buf_set_name('0', 'i', '<C-o>', '<esc>o', {})
+vim.api.nvim_set_keymap('v', 'J', [[:m '>+1<cr>gv=gv]], {noremap = true})
+vim.api.nvim_set_keymap('v', 'K', [[:m '<-2<cr>gv=gv]], {noremap = true})
+
+vim.api.nvim_set_keymap('n', '<A-Tab>', ':tabnext<cr>', {noremap = true})
+vim.api.nvim_set_keymap('n', '<A-S-Tab>', ':tabprev<cr>', {noremap = true})
+
+vim.api.nvim_set_keymap('n', '<Up>', [[:echoerr "Do not do that!!"<cr>]], {noremap = true})
+vim.api.nvim_set_keymap('n', '<Down>', [[:echoerr "Do not do that!!"<cr>]], {noremap = true})
+vim.api.nvim_set_keymap('n', '<Left>', [[:echoerr "Do not do that!!"<cr>]], {noremap = true})
+vim.api.nvim_set_keymap('n', '<Right>', [[:echoerr "Do not do that!!"<cr>]], {noremap = true})
+
+-- utils.create_augroup({
+--   {'FileType', '*', 'setlocal', 'shiftwidth=4'},
+--   {'FileType', 'ocaml,lua,nix', 'setlocal', 'shiftwidth=2'},
+--   -- {'FileType', 'dap-rel', [[lua require('dap.ext.autocompl').attach()]]}
+-- }, 'Tab2')
+
+-- utils.create_augroup({
+--   {'BufNewFile,BufReadPost', '*.md', 'set', 'filetype=markdown'},
+--   {'BufRead,BufNewFile', '*.yapl', 'set', 'filetype=yapl'}
+-- }, 'BufE')
+
+local home = os.getenv('HOME')
+
+-- vim.api.nvim_set_var('python_host_prog', home .. '/opt/anaconda3/envs/anaconda2/bin/python')
+-- vim.api.nvim_set_var('python3_host_prog', home .. '/opt/anaconda3/envs/anaconda3/bin/python')
+-- vim.api.nvim_set_var('ruby_host_prog', home .. '/.gem/ruby/2.6.0/gems/neovim-0.8.1/exe/neovim-ruby-host')
+
+-- vim.api.nvim_set_var('opamshare', home .. '/.opam/default/share')
+
+-- vim.api.nvim_set_var('merlin_python_version', 3)
+
+-- utils.add_rtp(home .. '/.opam/default/share/merlin/vim/doc')
+-- utils.add_rtp(home .. '/.opam/default/share/merlin/vim')
+-- utils.add_rtp(home .. '/.opam/default/share/merlin/vimbufsync')
+
+cmd [[packadd vimball]]
+
+local ok, _ = pcall(function() require('lsp_config') end)
+
+if not ok then
+  print("No LSP")
+end
+
+-- RELOAD = require('plenary.reload').reload_module
+
+-- R = function(name)
+--   RELOAD(name)
+--   return require(name)
+-- end
+
+-- R('plugins')
+-- R('nvim-web-devicons').setup()
+-- R('gitsigns').setup()
+-- R('lspkind').init()
+-- R('indent_guides').setup()
+-- R('nvim-autopairs').setup()
+-- R('elem.lspsaga')
+-- R('elem.completion')
+-- R('elem.treesitter')
+-- R('elem.statusline')
+-- R('elem.plenary')
+-- R('elem.telescope')
+-- R('elem.neuron')
+-- R('elem.neofs')
+-- R('mappings')
+-- R('globals')
+-- R('elem.dap')
+
+cmd [[colorscheme onedark]]
+cmd [[highlight LspDiagnosticsUnderline cterm=undercurl gui=undercurl]]
+
+-- cmd [[
+-- command! -complete=file -nargs=* DebugC lua require "elem.dap".start_c_debugger({<f-args>}, "lldb")
+-- ]]
+-- require'nvim_lsp'.pyls.setup{}
+

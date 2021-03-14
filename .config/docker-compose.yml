@@ -10,7 +10,7 @@ services:
     tty: true
     volumes:
       - config_content:/home/neovim/.config
-      - pack_content:/home/neovim/.local
+      - pack_content:/home/neovim/.config
 
 
 volumes:
