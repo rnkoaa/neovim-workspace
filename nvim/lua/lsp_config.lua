@@ -35,6 +35,18 @@ lsp.tsserver.setup{
   on_attach = custom_attach
 }
 
+lsp.gopls.setup {
+    cmd = {"gopls", "serve"},
+    settings = {
+        gopls = {
+        analyses = {
+            unusedparams = true,
+        },
+        staticcheck = true,
+        },
+    },
+}
+
 lsp.pyls.setup{
   on_attach = custom_attach
 }
