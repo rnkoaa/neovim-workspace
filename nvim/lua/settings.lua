@@ -21,5 +21,14 @@ utils.opt('w', 'number', true)
 utils.opt('w', 'relativenumber', true)
 utils.opt('o', 'clipboard','unnamed,unnamedplus')
 
+-------------------- MAPPINGS ------------------------------
+map('', '<leader>c', '"+y')       -- Copy to clipboard in normal, visual, select and operator modes
+map('i', '<C-u>', '<C-g>u<C-u>')  -- Make <C-u> undo-friendly
+map('i', '<C-w>', '<C-g>u<C-w>')  -- Make <C-w> undo-friendly
+
+-- <Tab> to navigate the completion menu
+map('i', '<S-Tab>', 'pumvisible() ? "\\<C-p>" : "\\<Tab>"', {expr = true})
+map('i', '<Tab>', 'pumvisible() ? "\\<C-n>" : "\\<Tab>"', {expr = true})
+
 -- Highlight on yank
--- vim.cmd 'au TextYankPost * lua vim.highlight.on_yank {on_visual = false}'
+vim.cmd 'au TextYankPost * lua vim.highlight.on_yank {on_visual = false}'
