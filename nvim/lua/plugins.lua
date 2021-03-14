@@ -23,6 +23,7 @@ return require('packer').startup(function()
       'nvim-telescope/telescope.nvim',
       requires = {{'nvim-lua/popup.nvim'}, {'nvim-lua/plenary.nvim'}}
   }
+  use 'jremmen/vim-ripgrep'
 
     -- Vim dispatch
   use { 'tpope/vim-dispatch' }
