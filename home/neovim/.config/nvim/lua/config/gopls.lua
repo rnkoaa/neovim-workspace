@@ -26,7 +26,6 @@ function goimports(timeoutms)
     else
       vim.lsp.buf.execute_command(action)
     end
-    print('goimports done')
   end
 
   vim.cmd 'autocmd BufWritePre *.go lua goimports(1000)'
