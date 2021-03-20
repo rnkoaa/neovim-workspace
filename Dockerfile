@@ -25,6 +25,7 @@ RUN apt update \
     zip \
     unzip \
     xclip \
+    fonts-cascadia-code \
   && apt clean all \
   && rm -rf /var/lib/apt/lists/*
 
