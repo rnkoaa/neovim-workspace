@@ -1,0 +1,28 @@
+  408  mkd code-server
+  409  mkdir code-server
+  410  cd code-server
+  412  wget https://github.com/cdr/code-server/releases/tag/v3.8.0
+  415  wget https://github.com/cdr/code-server/releases/download/v3.8.0/code-server_3.8.0_arm64.deb
+  417  sudo dpkg -i code-server_3.8.0_arm64.deb
+  418  wget https://github.com/cdr/code-server/releases/download/v3.8.0/code-server_3.8.0_amd64.deb
+  420  rm code-server_3.8.0_arm64.deb
+  421  sudo dpkg -i code-server_3.8.0_amd64.deb
+  422  code-server
+  424  which code-server
+  425  vim /lib/systemd/system/code-server.service
+  427  sudo vim /lib/systemd/system/code-server.service
+  428  sudo systemctl start code-server
+  429  systemctl status code-server
+  430  sudo systemctl enable code-server
+  441  sudo vim /etc/nginx/sites-available/code-server.conf
+  442  sudo ln -s /etc/nginx/sites-available/code-server.conf /etc/nginx/sites-enabled/code-server.conf\n
+  449  systemctl status code-server
+  451  sudo vim /lib/systemd/system/code-server.service
+  452  systemctl reload code-server
+  453  sudo systemctl restart code-server
+  455  sudo systemctl restart code-server
+  636  cd code-server
+ 1152  cd code-server
+ 1157  sudo vim /etc/nginx/sites-available/code-server.conf
+ 1158  sudo vim /lib/systemd/system/code-server.service
+ 1760  history | grep code-server
