@@ -26,3 +26,13 @@
  1157  sudo vim /etc/nginx/sites-available/code-server.conf
  1158  sudo vim /lib/systemd/system/code-server.service
  1760  history | grep code-server
+ 1761  history | grep code-server > code-server-details.txt
+ 1762  cat code-server-details.txt
+ 1763  wget https://github.com/cdr/code-server/releases/download/v3.9.1/code-server_3.9.1_amd64.deb
+ 1764  sudo dpkg -i code-server_3.9.1_amd64.deb
+ 1765  systemctl restart code-server.service
+ 1766  sudo systemctl restart code-server.service
+ 1767  cat /lib/systemd/system/code-server.service 
+ 1769  rm code-server_3.9.1_amd64.deb
+ 1797  cat code-server-details.txt
+ 1800  sudo vim /etc/nginx/sites-available/code-server.conf
