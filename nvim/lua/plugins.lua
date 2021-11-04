@@ -1,37 +1,49 @@
--- This file can be loaded by calling `lua require('plugins')` from your init.vim
+local use = require("packer").use
+require("packer").startup(
+  function()
+    -- For Packer
+    use "wbthomason/packer.nvim"
 
--- Only required if you have packer in your `opt` pack
-vim.cmd [[packadd packer.nvim]]
+    -- Explorer
 
-return require('packer').startup(function()
- -- Packer can manage itself as an optional plugin
-  use {'wbthomason/packer.nvim', opt = true}
+    use {
+      "kyazdani42/nvim-tree.lua",
+      requires = "kyazdani42/nvim-web-devicons"
+      -- config = function()
+      --   require "nvim-tree".setup {}
+      -- end
+    }
 
-  use 'neovim/nvim-lspconfig'
-  use 'nvim-lua/completion-nvim'
-  use 'anott03/nvim-lspinstall'
+    use {
+      "folke/which-key.nvim"
+    }
 
-  use {"hrsh7th/nvim-compe"}
+    use "mhartington/formatter.nvim"
+    use "neovim/nvim-lspconfig"
+    use "glepnir/lspsaga.nvim"
+    use "onsails/lspkind-nvim"
 
-  use {"nvim-treesitter/nvim-treesitter"}
-  use {'nvim-treesitter/playground' }
-
-  use {"chriskempson/base16-vim"}
-
-    -- Fuzzy finder
-  use {
-      'nvim-telescope/telescope.nvim',
-      requires = {{'nvim-lua/popup.nvim'}, {'nvim-lua/plenary.nvim'}}
-  }
-  use 'jremmen/vim-ripgrep'
-
-    -- Vim dispatch
-  use { 'tpope/vim-dispatch' }
-
-  -- Fugitive for Git
-  use { 'tpope/vim-fugitive' }
-  use { 'tpope/vim-surround' }
-  use { 'tpope/vim-commentary' }
-
-end
+    use "hrsh7th/cmp-nvim-lsp"
+    use "hrsh7th/cmp-buffer"
+    use "EdenEast/nightfox.nvim"
+    use "hrsh7th/nvim-cmp"
+    use "hrsh7th/cmp-path"
+    use "saadparwaiz1/cmp_luasnip"
+    use "L3MON4D3/LuaSnip" -- Snippets plugin
+    use "windwp/nvim-autopairs"
+    use "maxmellon/vim-jsx-pretty"
+    -- Highlight, edit, and navigate code using a fast incremental parsing library
+    use "nvim-treesitter/nvim-treesitter"
+    use "nvim-lualine/lualine.nvim"
+    -- Additional textobjects for treesitter
+    use "nvim-treesitter/nvim-treesitter-textobjects"
+    use "tpope/vim-commentary" -- "gc" to comment visual regions/lines
+    -- Add indentation guides even on blank lines
+    use "lukas-reineke/indent-blankline.nvim"
+    use {
+      "nvim-telescope/telescope.nvim",
+      requires = {{"nvim-lua/plenary.nvim"}}
+    }
+    use "mfussenegger/nvim-jdtls"
+  end
 )
